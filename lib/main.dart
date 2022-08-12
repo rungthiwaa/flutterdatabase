@@ -13,7 +13,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
-        primarySwatch: Colors.blue,
+        primarySwatch: Colors.green,
       ),
       home: const MyHomePage(title: 'แอปพลิเคชัน'),
     );
@@ -45,8 +45,13 @@ class _MyHomePageState extends State<MyHomePage> {
             )
           ],
         ),
-        body:
-            Container() // This trailing comma makes auto-formatting nicer for build methods.
+        body: ListView.builder(itemBuilder: (context, int index) {
+          return Card(
+            child: ListTile(
+              title: Text("เมนู"),
+            ),
+          );
+        }) // This trailing comma makes auto-formatting nicer for build methods.
         );
   }
 }
