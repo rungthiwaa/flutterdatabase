@@ -45,13 +45,24 @@ class _MyHomePageState extends State<MyHomePage> {
             )
           ],
         ),
-        body: ListView.builder(itemBuilder: (context, int index) {
-          return Card(
-            child: ListTile(
-              title: Text("เมนู"),
-            ),
-          );
-        }) // This trailing comma makes auto-formatting nicer for build methods.
+        body: ListView.builder(
+            itemCount: 4,
+            itemBuilder: (context, int index) {
+              return Card(
+                elevation: 5,
+                margin:
+                    const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
+                child: ListTile(
+                  leading: CircleAvatar(
+                    child: FittedBox(
+                      child: Text("600"),
+                    ),
+                  ),
+                  title: Text("รายการ"),
+                  subtitle: Text("13/8/2022"),
+                ),
+              );
+            }) // This trailing comma makes auto-formatting nicer for build methods.
         );
   }
 }
