@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_database/models/Transaction.dart';
+import 'package:flutter_database/providers/transaction_provider.dart';
 import 'package:flutter_database/screens/from_screen.dart';
+import 'package:provider/provider.dart';
 
 void main() {
   runApp(const MyApp());
@@ -10,12 +13,19 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        primarySwatch: Colors.green,
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (context) {
+          return TransactionProvider();
+        }),
+      ],
+      child: MaterialApp(
+        title: 'Flutter Demo',
+        theme: ThemeData(
+          primarySwatch: Colors.green,
+        ),
+        home: const MyHomePage(title: 'แอปพลิเคชัน'),
       ),
-      home: const MyHomePage(title: 'แอปพลิเคชัน'),
     );
   }
 }
@@ -45,25 +55,29 @@ class _MyHomePageState extends State<MyHomePage> {
             )
           ],
         ),
-        body: ListView.builder(
-            itemCount: 4,
-            itemBuilder: (context, int index) {
-              return Card(
-                elevation: 5,
-                margin:
-                    const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
-                child: ListTile(
-                  leading: CircleAvatar(
-                    radius: 30,
-                    child: FittedBox(
-                      child: Text("600"),
+        body: Consumer(
+          builder: (context, TransactionProvider provider, Widget child) {
+            return ListView.builder(
+                itemCount: provider.transactions.length,
+                itemBuilder: (context, int index) {
+                  Transaction data = provider.transactions[index];
+                  return Card(
+                    elevation: 5,
+                    margin: const EdgeInsets.symmetric(
+                        vertical: 10, horizontal: 10),
+                    child: ListTile(
+                      leading: CircleAvatar(
+                        radius: 30,
+                        child: FittedBox(
+                          child: Text("600"),
+                        ),
+                      ),
+                      title: Text(data.title),
+                      subtitle: Text("13/8/2022"),
                     ),
-                  ),
-                  title: Text("รายการ"),
-                  subtitle: Text("13/8/2022"),
-                ),
-              );
-            }) // This trailing comma makes auto-formatting nicer for build methods.
-        );
+                  );
+                }); // This trailing comma makes auto-formatting nicer for build methods.
+          },
+        ));
   }
 }

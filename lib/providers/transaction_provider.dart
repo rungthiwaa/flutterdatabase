@@ -14,7 +14,7 @@ class TransactionProvider with ChangeNotifier {
     return transactions;
   }
 
-  addTransaction(Transaction statement) {
+  void addTransaction(Transaction statement) {
     transactions.add(statement);
   }
 }
