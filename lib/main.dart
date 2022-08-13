@@ -54,6 +54,7 @@ class _MyHomePageState extends State<MyHomePage> {
                     const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
                 child: ListTile(
                   leading: CircleAvatar(
+                    radius: 30,
                     child: FittedBox(
                       child: Text("600"),
                     ),
