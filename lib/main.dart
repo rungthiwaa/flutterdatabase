@@ -17,14 +17,14 @@ class MyApp extends StatelessWidget {
       providers: [
         ChangeNotifierProvider(create: (context) {
           return TransactionProvider();
-        }),
+        })
       ],
       child: MaterialApp(
         title: 'Flutter Demo',
         theme: ThemeData(
           primarySwatch: Colors.green,
         ),
-        home: const MyHomePage(title: 'แอปพลิเคชัน'),
+        home: const MyHomePage(title: 'เครื่องเขียน'),
       ),
     );
   }
@@ -46,17 +46,16 @@ class _MyHomePageState extends State<MyHomePage> {
           title: Text(widget.title),
           actions: [
             IconButton(
-              icon: Icon(Icons.add),
-              onPressed: () {
-                Navigator.push(context, MaterialPageRoute(builder: (context) {
-                  return Fromscreen();
-                }));
-              },
-            )
+                icon: Icon(Icons.add),
+                onPressed: () {
+                  Navigator.push(context, MaterialPageRoute(builder: (context) {
+                    return Fromscreen();
+                  }));
+                })
           ],
         ),
         body: Consumer(
-          builder: (context, TransactionProvider provider, Widget child) {
+          builder: (context, TransactionProvider provider, Widget? child) {
             return ListView.builder(
                 itemCount: provider.transactions.length,
                 itemBuilder: (context, int index) {
