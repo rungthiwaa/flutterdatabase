@@ -68,7 +68,7 @@ class _MyHomePageState extends State<MyHomePage> {
                       leading: CircleAvatar(
                         radius: 30,
                         child: FittedBox(
-                          child: Text("600"),
+                          child: Text(data.amount.toString()),
                         ),
                       ),
                       title: Text(data.title),
