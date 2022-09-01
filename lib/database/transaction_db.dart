@@ -21,7 +21,7 @@ class TransactionDB {
   }
 
   Future<int> InsertData(Transactions statement) async {
-    var db = await this.openDatabase();
+    var db = await openDatabase();
     var store = intMapStoreFactory.store("expense");
 
     var keyID = store.add(db, {
@@ -33,11 +33,19 @@ class TransactionDB {
     return keyID;
   }
 
-  loadAllData() async {
+  Future<List<Transactions>> loadAllData() async {
     var db = await this.openDatabase();
     var store = intMapStoreFactory.store("expense");
-    var snapshot = store.find(db);
-    print(snapshot);
-    return true;
+    var snapshot = await store.find(db);
+    // ignore: deprecated_member_use
+    List transactionList = List<Transactions>();
+    for (var record in snapshot) {
+      transactionList.add(Transactions(
+          title: record["title"],
+          amount: record["amount"],
+          date: DateTime.parse(record["date"])));
+    }
+
+    return transactionList;
   }
 }
