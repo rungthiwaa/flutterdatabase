@@ -5,6 +5,8 @@ import 'package:path_provider/path_provider.dart';
 import 'package:sembast/sembast.dart';
 import 'package:sembast/sembast_io.dart';
 
+import '../models/Transactions.dart';
+
 class TransactionDB {
   String dbName;
 
@@ -16,5 +18,16 @@ class TransactionDB {
     DatabaseFactory dbFactory = await databaseFactoryIo;
     Database db = await dbFactory.openDatabase(dbLocation);
     return db;
+  }
+
+  InsertData(Transactions statement) async {
+    var db = await this.openDatabase();
+    var store = intMapStoreFactory.store("expense");
+
+    store.add(db, {
+      "title": statement.title,
+      "amount": statement.amount,
+      "date": statement.date
+    });
   }
 }
