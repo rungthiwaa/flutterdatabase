@@ -1,7 +1,8 @@
+import 'package:flutter/services.dart';
 import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_application_o2/models/Informations.dart';
-import 'package:flutter_application_o2/providers/information_provider.dart';
+import 'package:flutter_application_o2/providers/transaction_provider.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter/material.dart';
 
@@ -19,7 +20,7 @@ class _HomeScreenState extends State<HomeScreen> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    Provider.of<InformationProvider>(context, listen: false).initData();
+    Provider.of<TransactionProvider>(context, listen: false).initData();
   }
 
   @override
@@ -29,17 +30,15 @@ class _HomeScreenState extends State<HomeScreen> {
           title: Text("เครื่องเขียน"),
           actions: [
             IconButton(
-                icon: Icon(Icons.add),
+                icon: Icon(Icons.exit_to_app),
                 onPressed: () {
-                  Navigator.push(context, MaterialPageRoute(builder: (context) {
-                    return FormScreen();
-                  }));
+                  SystemNavigator.pop();
                 })
           ],
         ),
         body: Consumer(
-          builder: (context, InformationProvider provider, Widget? child) {
-            var count = provider.informations.length;
+          builder: (context, TransactionProvider provider, Widget? child) {
+            var count = provider.transactions.length;
             if (count <= 0) {
               return Center(
                 child: Text(
@@ -51,7 +50,7 @@ class _HomeScreenState extends State<HomeScreen> {
               return ListView.builder(
                   itemCount: provider.informations.length,
                   itemBuilder: (context, int index) {
-                    Informations data = provider.informations[index];
+                    Transactions data = provider.informations[index];
                     return Card(
                       elevation: 5,
                       margin: const EdgeInsets.all(5.0),
@@ -62,7 +61,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           ),
                         ),
                         title: Text(data.title),
-                        subtitle: Text(data.product.toString()),
+                        subtitle: Text(data.amount.toString()),
                       ),
                     );
                   });

@@ -24,7 +24,7 @@ class Fromscreen extends StatelessWidget {
                 children: [
                   TextFormField(
                     decoration: new InputDecoration(labelText: "ชื่อรายการ"),
-                    autofocus: true,
+                    autofocus: false,
                     controller: titleControiller,
                     validator: (String? str) {
                       if (str!.isEmpty) {
