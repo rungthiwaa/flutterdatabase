@@ -1,7 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_database/models/Transaction.dart';
+import 'package:flutter_database/providers/transaction_provider.dart';
+import 'package:provider/provider.dart';
 
 class Fromscreen extends StatelessWidget {
   final formKey = GlobalKey<FormState>();
+
+  //controller
+  final titleControiller = TextEditingController(); //รับค่าชื่อรายการ
+  final amountController = TextEditingController(); //รับตัวเลขจำนวนเงิน
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -18,6 +25,7 @@ class Fromscreen extends StatelessWidget {
                   TextFormField(
                     decoration: new InputDecoration(labelText: "ชื่อรายการ"),
                     autofocus: true,
+                    controller: titleControiller,
                     validator: (String? str) {
                       if (str!.isEmpty) {
                         return "กรุณาป้อนชื่อรายการ";
@@ -28,6 +36,7 @@ class Fromscreen extends StatelessWidget {
                   TextFormField(
                     decoration: new InputDecoration(labelText: "จำนวนเงิน"),
                     keyboardType: TextInputType.number,
+                    controller: amountController,
                     validator: (String? str) {
                       if (str!.isEmpty) {
                         return "กรุณาป้อนจำนวนเงิน";
@@ -45,6 +54,24 @@ class Fromscreen extends StatelessWidget {
                       textColor: Colors.white,
                       onPressed: () {
                         if (formKey.currentState!.validate()) {
+                          var title = titleControiller.text;
+                          var amount = amountController.text;
+
+                          //เตรียมข้อมูล
+                          Transaction statement = Transaction(
+                              title: title,
+                              amount: double.parse(amount),
+                              date: DateTime.now()); //object
+
+                          //เรียกprovider
+                          var provider = Provider.of<TransactionProvider>(
+                              context,
+                              listen: false);
+                          provider.addTransaction(statement);
+
+                          print(title);
+                          print(amount);
+
                           Navigator.pop(context);
                         }
                       })
