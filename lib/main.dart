@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_database/models/Transaction.dart';
 import 'package:flutter_database/providers/transaction_provider.dart';
 import 'package:flutter_database/screens/from_screen.dart';
+import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 
 void main() {
@@ -81,7 +82,8 @@ class _MyHomePageState extends State<MyHomePage> {
                           ),
                         ),
                         title: Text(data.title),
-                        subtitle: Text("13/8/2022"),
+                        subtitle:
+                            Text(DateFormat("dd/MM/yyyy").format(data.date)),
                       ),
                     );
                   }); // This trailing comma makes auto-formatting nicer for build methods.
