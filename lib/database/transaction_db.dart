@@ -36,7 +36,8 @@ class TransactionDB {
   Future<List<Transactions>> loadAllData() async {
     var db = await this.openDatabase();
     var store = intMapStoreFactory.store("expense");
-    var snapshot = await store.find(db);
+    var snapshot = await store.find(db,
+        finder: Finder(sortOrders: [SortOrder(Field.key, false)]));
     // ignore: deprecated_member_use
     List transactionList = List<Transactions>();
     for (var record in snapshot) {
